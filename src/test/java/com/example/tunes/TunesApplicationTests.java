@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.*;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestTemplate;
@@ -48,7 +46,7 @@ class TunesApplicationTests {
     }
 
     @Test
-    public void searchArtisIntegrationTest() throws Exception {
+    public void searchArtis_get200() throws Exception {
         mockServer
                 .expect(requestTo(new URI(ARTIST_URL.replace("{term}", "abba"))))
                 .andExpect(method(HttpMethod.GET))
@@ -61,7 +59,7 @@ class TunesApplicationTests {
     }
 
     @Test
-    public void searchArtisNotRespondingIntegrationTest() throws Exception {
+    public void searchArtisWhenITunesNotResponding_get503() throws Exception {
         mockServer
                 .expect(requestTo(new URI(ARTIST_URL.replace("{term}", "abbaaa"))))
                 .andExpect(method(HttpMethod.GET))
@@ -73,7 +71,7 @@ class TunesApplicationTests {
 
     @Test
     @Order(1)
-    public void addUserFavouriteArtistIntegrationTest() throws Exception {
+    public void addUserFavouriteArtist_get204() throws Exception {
         this.mockMvc.perform(post("/api/favourite?userId=11")
                 .contentType("application/json").content("{\"artistId\": 3492}"))
                 .andExpect(status().isNoContent());
@@ -81,7 +79,7 @@ class TunesApplicationTests {
 
     @Test
     @Order(2)
-    public void getTopAlbumsIntegrationTest() throws Exception {
+    public void getTopAlbums_get200() throws Exception {
         mockServer
                 .expect(requestTo(new URI(TOP5_ALBUMS_URL.replace("{artistId}", "3492"))))
                 .andExpect(method(HttpMethod.GET))
@@ -95,7 +93,7 @@ class TunesApplicationTests {
     }
 
     @Test
-    public void getTopAlbumsUserNotFoundIntegrationTest() throws Exception {
+    public void getTopAlbumsWhenUserNotFound_get404() throws Exception {
         this.mockMvc.perform(get("/api/top?userId=15"))
                 .andExpect(status().isNotFound());
     }

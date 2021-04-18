@@ -5,7 +5,6 @@ import com.example.tunes.model.Album;
 import com.example.tunes.model.Artist;
 import com.example.tunes.model.result.SearchArtistRequestResult;
 import com.example.tunes.model.result.TopAlbumsRequestResult;
-import org.springframework.beans.NotReadablePropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
