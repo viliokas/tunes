@@ -1,5 +1,5 @@
 # tunes
-Spring Boot RESTful Web Service for testing ITunes apis
+Spring Boot RESTful Web Service for testing ITunes API's
 ## Requirements
 
 For building and running the application you need:
